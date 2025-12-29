@@ -24,11 +24,17 @@ const getAppVersion = () => {
   }
 }
 
+const projectName = path.basename(__dirname)
+const outDir = `dist/${projectName}`
+
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
 
   return {
+    build: {
+      outDir
+    },
     define: {
       'import.meta.env.GIT_COMMIT': getGitHash(),
       'import.meta.env.APP_VERSION': getAppVersion(),
@@ -51,7 +57,7 @@ export default defineConfig(({ mode }) => {
         registerType: 'autoUpdate',
         workbox: {
           globPatterns: ['**/*.{js,css,html,png,jpg,svg}'],
-          globDirectory: 'dist/',
+          globDirectory: outDir,
           maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
           cleanupOutdatedCaches: true
         },

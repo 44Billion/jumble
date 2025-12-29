@@ -84,6 +84,7 @@ export type TTheme = 'light' | 'dark' | 'pure-black'
 export type TDraftEvent = Pick<Event, 'content' | 'created_at' | 'kind' | 'tags'>
 
 export type TNip07 = {
+  peekPublicKey: () => Promise<string>
   getPublicKey: () => Promise<string>
   signEvent: (draftEvent: TDraftEvent) => Promise<VerifiedEvent>
   nip04?: {
