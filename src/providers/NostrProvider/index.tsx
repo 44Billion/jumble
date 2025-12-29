@@ -144,7 +144,10 @@ export function NostrProvider({ children }: { children: React.ReactNode }) {
 
       const accounts = storage.getAccounts()
       const act = storage.getCurrentAccount() ?? accounts[0] // auto login the first account
-      if (!act) return
+      if (!act) {
+        if (window.nostr?.peekPublicKey) await nip07Login()
+        return
+      }
 
       await loginWithAccountPointer(act)
     }

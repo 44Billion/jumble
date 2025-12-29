@@ -21,6 +21,16 @@ export class Nip07Signer implements ISigner {
     )
   }
 
+  async peekPublicKey() {
+    if (!this.signer) {
+      throw new Error('Should call init() first')
+    }
+    if (!this.pubkey) {
+      this.pubkey = await this.signer.peekPublicKey()
+    }
+    return this.pubkey
+  }
+
   async getPublicKey() {
     if (!this.signer) {
       throw new Error('Should call init() first')
